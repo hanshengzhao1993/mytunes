@@ -3,23 +3,25 @@ var Songs = Backbone.Collection.extend({
 
   model: SongModel,
 
-  initialze: function () {
-    // this.fetch();
-    // this.collection('click', function (e) {
+  initialize: function () {
+    this.fetch();
+    // console.dir(this.model);
 
-    // });
-    console.log(this);
+  },
+
+  fetch: function () {
+    let context = this;
+    $.ajax({
+      url: 'https://api.parse.com/1/classes/songs/',
+      type: 'GET',
+      contentType: 'application/json',
+      success: function (data) {
+        // console.log(data.results);
+        context.trigger('fetchedIt', this);
+      },
+      error: function () {
+        console.log('error');
+      }
+    });
   }
-
-  // fetch: function () {
-  //   $.ajax({
-  //     url: '',
-  //     type: 'GET',
-  //     contentType: 'application/json',
-  //     success: function (data) {
-       
-  //     },
-  //     error: function () {}
-  //   });
-  // }
 });
